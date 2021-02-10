@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.mapper.MemberShipMapper">
+    <resultMap id="BaseResult" type="com.zyt.entity.MemberShip">
+        <result column="mshipId" property="MshipId" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="realName" property="RealName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="phoneNumer" property="PhoneNumer" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="memberSex" property="MemberSex" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="identityCard" property="IdentityCard" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="vipRegName" property="VipRegName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="registerTime" property="RegisterTime" javaType="java.util.Date" jdbcType="DATE"/>
+        <result column="vipGrade" property="VipGrade" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="grouthValue" property="GrouthValue" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="prohibitReducte" property="ProhibitReducte" javaType="java.lang.Boolean" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+    <select id="getAllVipMemberInfos" parameterType="int" resultMap="BaseResult">
+        select * from memberShip where 1 = 1 limit #{start},#{end}
+    </select>
+
+    <select id="getAllVipMemberInfosCounts" resultType="int">
+        select count(*) from memberShip where 1 = 1
+    </select>
+
+    <select id="getVipMemeberInfosByItems"  resultMap="BaseResult">
+        select * from memberShip where 1 = 1
+                    <if test="memberName != null"> and vipRegName = #{memberName}</if>
+                    <if test="registerDate != null"> and registerTime = #{registerDate}</if>
+                     limit #{start},#{end}
+    </select>
+
+    <select id="getVipMemeberInfosCountsByItems" resultType="int">
+        select count(*) from memberShip where 1 = 1
+                    <if test="memberName != null"> and vipRegName = #{memberName}</if>
+                    <if test="registerDate != null"> and registerTime = #{registerDate}</if>
+    </select>
+
+</mapper>
